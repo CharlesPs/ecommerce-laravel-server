@@ -1,2 +1,2 @@
 
-# ecommerce-server
+# ecommerce-laravel-server
