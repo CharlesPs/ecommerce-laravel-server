@@ -24,4 +24,9 @@ Route::post('/login', 'App\Http\Controllers\SessionController@authenticate');
 Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::post('user','App\Http\Controllers\SessionController@getAuthenticatedUser');
+
+    Route::get('/products', 'App\Http\Controllers\ProductController@index');
+    Route::post('/products', 'App\Http\Controllers\ProductController@store');
+    Route::put('/products/{id}', 'App\Http\Controllers\ProductController@update');
+    Route::delete('/products/{id}', 'App\Http\Controllers\ProductController@destroy');
 });
