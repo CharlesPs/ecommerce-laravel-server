@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 
 class ProductController extends Controller
 {
@@ -42,14 +40,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        $product = new Product();
-
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->slug = $request->slug;
-        $product->price = $request->price;
-
-        $product->save();
     }
 
     /**
@@ -84,17 +74,6 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
-
-        $product = Product::findOrFail($request->id);
-
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->slug = $request->slug;
-        $product->price = $request->price;
-
-        $product->save();
-
-        return $product;
     }
 
     /**
@@ -106,8 +85,5 @@ class ProductController extends Controller
     public function destroy($request)
     {
         //
-        $deleted = Product::destroy($request->id);
-
-        return $deleted;
     }
 }
