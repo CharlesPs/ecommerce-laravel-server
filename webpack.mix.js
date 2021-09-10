@@ -13,6 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/index.js', 'public/js')
 .react()
+.sourceMaps()
 .webpackConfig({
     module: {
         rules: [
@@ -27,7 +28,6 @@ mix.js('resources/js/index.js', 'public/js')
       extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx"]
     }
 })
-.sourceMaps()
 
 mix.sass('resources/sass/app.scss', 'public/css')
 

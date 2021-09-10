@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use JWTAuth;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class JwtProductController extends Controller
 {
@@ -58,7 +59,6 @@ class JwtProductController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'slug' => 'required',
             'price' => 'required|numeric'
         ]);
 
@@ -66,7 +66,7 @@ class JwtProductController extends Controller
 
         $product->name = $request->name;
         $product->description = $request->description;
-        $product->slug = $request->slug;
+        $product->slug = Str::slug($request->name, "-");
         $product->price = $request->price;
 
         $product->save();

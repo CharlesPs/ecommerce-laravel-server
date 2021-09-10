@@ -1,0 +1,20 @@
+
+#root {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.main-layout {
+    display: flex;
+    flex: 1;
+    flex-wrap: nowrap;
+    height: 100vh;
+    height: -webkit-fill-available;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    .page-content {
+        background-color: #f1f1f1;
+    }
+}

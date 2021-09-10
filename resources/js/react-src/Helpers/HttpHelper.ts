@@ -13,7 +13,7 @@ const getHeaders = () => {
         'Content-Type': 'application/json'
     }
 
-    const userToken = localStorage.getItem('token')
+    const userToken = localStorage.getItem('sessionToken')
 
     if (userToken !== '') {
 
@@ -44,6 +44,13 @@ const onError = (apiStart: any, method: string, request_id: string, error: any) 
     const diff = apiEnd.diff(apiStart)
 
     console.log(`API ${method} ERROR`, `${diff} ms`, `Request Id: ${request_id}`, error)
+
+    if (error.response.status === 401) {
+
+        localStorage.removeItem('sessionToken')
+
+        window.location.href = '/admin/login'
+    }
 }
 
 export const get = async (url: string, tag = '') => {
@@ -109,5 +116,71 @@ export const post = async (url: string, data: any, tag = '') => {
     } catch (error) {
 
         onError(apiStart, 'POST', headers['X-REQUEST-ID'], error)
+    }
+}
+
+export const put = async (url: string, data: any, tag = '') => {
+
+    const apiStart = moment()
+
+    const headers = getHeaders()
+
+    try {
+
+        onRequest('PUT', headers['X-REQUEST-ID'], { tag, url, data })
+
+        const res = await axios.put(url, data, { headers })
+
+        if (res.status !== 200 && res.status !== 201) {
+
+            const message = res.data.message || res.data
+
+            throw {
+                request_id: headers['X-REQUEST-ID'],
+                message,
+                status: res.status
+            }
+        } else {
+
+            onSuccess(apiStart, 'PUT', headers['X-REQUEST-ID'], res)
+
+            return res.data
+        }
+    } catch (error) {
+
+        onError(apiStart, 'PUT', headers['X-REQUEST-ID'], error)
+    }
+}
+
+export const del = async (url: string, tag = '') => {
+
+    const apiStart = moment()
+
+    const headers = getHeaders()
+
+    try {
+
+        onRequest('DELETE', headers['X-REQUEST-ID'], { tag, url })
+
+        const res = await axios.delete(url, { headers })
+
+        if (res.status !== 200 && res.status !== 201) {
+
+            const message = res.data.message || res.data
+
+            throw {
+                request_id: headers['X-REQUEST-ID'],
+                message,
+                status: res.status
+            }
+        } else {
+
+            onSuccess(apiStart, 'DELETE', headers['X-REQUEST-ID'], res)
+
+            return res.data
+        }
+    } catch (error) {
+
+        onError(apiStart, 'DELETE', headers['X-REQUEST-ID'], error)
     }
 }

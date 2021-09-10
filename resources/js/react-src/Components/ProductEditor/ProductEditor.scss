@@ -1,0 +1,26 @@
+
+.product-editor {
+    max-width: none !important;
+    width: auto;
+}
+
+@media (min-width: 768px) {
+
+    .product-editor {
+        width: 90%;
+    }
+}
+
+@media (min-width: 992px) {
+
+    .product-editor {
+        width: 80%;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    .product-editor {
+        width: 1180px;
+    }
+}

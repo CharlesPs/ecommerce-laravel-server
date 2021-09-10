@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux'
 
 import { actionLogin } from '../../Redux/Actions/SessionActions'
 
+import './LoginPage.scss'
+
 const LoginPage = () => {
 
     const dispatch = useDispatch()
@@ -20,10 +22,12 @@ const LoginPage = () => {
     }
 
     return (
-        <>
-            LoginPage
-            <button onClick={() => login()}>Login</button>
-        </>
+        <div className="login-page" style={{ width: '100%'}}>
+            <div className="login-form">
+                LoginPage
+                <button onClick={() => login()}>Login</button>
+            </div>
+        </div>
     )
 }
 
