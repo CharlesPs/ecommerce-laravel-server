@@ -3,9 +3,9 @@ import EndPoints from '../Config/Endpoints'
 
 import { get, post, put, del } from '../Helpers/HttpHelper'
 
-export const getResult = async () => {
+export const getResult = async (page = 1) => {
 
-    const url = EndPoints.products
+    const url = `${EndPoints.products}?page=${page}`
 
     try {
 

@@ -71,6 +71,7 @@
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   },
   "include": [
-    "resources/js/**/*"
+    "resources/js/**/*",
+    "resources/js/react-src/custom.d.ts"
   ]
 }

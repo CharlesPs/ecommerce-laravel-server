@@ -1,8 +1,11 @@
 
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { faPencilAlt, faPlusSquare, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
 import { Button, ButtonGroup, Card } from 'react-bootstrap'
+
+import Swal from 'sweetalert2'
 
 import Header from '../../Layouts/Header/Header'
 
@@ -15,7 +18,13 @@ import {
     productsUpdateRow,
     productsDeleteRow
 } from '../../Redux/Actions/ProductsActions'
+
 import ProductEditor from '../../Components/ProductEditor/ProductEditor'
+import Paginator from '../../Components/Paginator/Paginator'
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 const empty_row = {
     name: '',
@@ -23,7 +32,11 @@ const empty_row = {
     price: 0,
 }
 
-const ProductsPage = () => {
+const ProductsPage = (props: any) => {
+
+    let query = useQuery()
+
+    const page = parseInt(query.get('page') ?? '1', 10)
 
     const dispatch = useDispatch()
 
@@ -36,9 +49,9 @@ const ProductsPage = () => {
 
     const loadProducts = async () => {
 
-        if (!Products.loaded) {
+        if (!Products.loaded || page !== Products.page) {
 
-            await dispatch(productsGetResult())
+            await dispatch(productsGetResult(page))
         }
     }
 
@@ -51,10 +64,10 @@ const ProductsPage = () => {
 
         if (!row.id) {
 
-            dispatch(productsCreateRow(row))
+            dispatch(productsCreateRow(row, page))
         } else {
 
-            dispatch(productsUpdateRow(row))
+            dispatch(productsUpdateRow(row, page))
         }
 
         setEditor({ ...editor, show: false })
@@ -62,7 +75,25 @@ const ProductsPage = () => {
 
     const deleteRow = async (row: any) => {
 
-        dispatch(productsDeleteRow(row))
+        try {
+            const res = await Swal.fire({
+                title: '¿Eliminar producto?',
+                text: 'Esta acción no se puede deshacer',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Eliminar',
+                width: 500
+            })
+
+            if (res.isConfirmed) {
+
+                dispatch(productsDeleteRow(row, page))
+            }
+        } catch (error) {
+
+        }
+
     }
 
     useEffect(() => {
@@ -73,12 +104,14 @@ const ProductsPage = () => {
 
             dispatch(productsClear())
         }
-    }, [])
+    }, [ page ])
+
+    console.log({ Products })
 
     return (
         <main className="">
             <Header title="Productos" />
-            <Card>
+            <Card className="card-content">
                 <Card.Body>
                     <ButtonGroup>
                         <Button variant="outline-secondary" size="sm" onClick={() => selectRow({ ...empty_row })}>
@@ -102,7 +135,8 @@ const ProductsPage = () => {
                                     <tr key={`${i}-${product.id}`}>
                                         <td></td>
                                         <td>
-                                            {product.name}
+                                            <strong>{product.name}</strong><br />
+                                            <small>{product.description}</small>
                                         </td>
                                         <td></td>
                                         <td></td>
@@ -129,6 +163,16 @@ const ProductsPage = () => {
                             </tbody>
                         </table>
                     </div>
+                    {!Products.paginator ? null : (
+                        <div className="d-flex flex-row-reverse">
+                            <Paginator
+                                current_page={Products.paginator.current_page}
+                                last_page={Products.paginator.last_page}
+                                page_url="/admin/products"
+                                links={Products.paginator.links}
+                            />
+                        </div>
+                    )}
                 </Card.Body>
             </Card>
 
