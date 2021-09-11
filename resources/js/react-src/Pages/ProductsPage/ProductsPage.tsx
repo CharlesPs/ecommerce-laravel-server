@@ -140,8 +140,8 @@ const ProductsPage = (props: any) => {
                                             <strong>{product.name}</strong><br />
                                             <small>{product.description}</small>
                                         </td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{product.price}</td>
+                                        <td>{product.stock}</td>
                                         <td>
                                             <Button
                                                 variant="outline-secondary"
