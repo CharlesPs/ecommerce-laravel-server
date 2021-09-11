@@ -3,7 +3,7 @@ import axios from 'axios'
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid'
 
-const getHeaders = () => {
+export const getHeaders = () => {
 
     const uniqid = uuidv4()
 

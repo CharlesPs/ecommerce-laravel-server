@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { faPencilAlt, faPlusSquare, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Button, ButtonGroup, Card } from 'react-bootstrap'
+import { Button, ButtonGroup, Card, Image } from 'react-bootstrap'
 
 import Swal from 'sweetalert2'
 
@@ -29,7 +29,9 @@ function useQuery() {
 const empty_row = {
     name: '',
     description: '',
+    image: '',
     price: 0,
+    stock: 0,
 }
 
 const ProductsPage = (props: any) => {
@@ -106,7 +108,7 @@ const ProductsPage = (props: any) => {
         }
     }, [ page ])
 
-    console.log({ Products })
+    // console.log({ Products })
 
     return (
         <main className="">
@@ -123,17 +125,19 @@ const ProductsPage = (props: any) => {
                         <table className="table table-bordered">
                             <thead className="table-light">
                                 <tr>
-                                    <th>Imagen</th>
+                                    <th style={{ width: 100}}>Imagen</th>
                                     <th>Nombre / Descripción</th>
-                                    <th>Precio</th>
-                                    <th>Stock</th>
-                                    <th>Acciones</th>
+                                    <th style={{ width: 120}}>Precio</th>
+                                    <th style={{ width: 100}}>Stock</th>
+                                    <th style={{ width: 200}}>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {Products.result.map((product: any, i: number) => (
                                     <tr key={`${i}-${product.id}`}>
-                                        <td></td>
+                                        <td>
+                                            <Image src={product.image || 'https://via.placeholder.com/256'} thumbnail />
+                                        </td>
                                         <td>
                                             <strong>{product.name}</strong><br />
                                             <small>{product.description}</small>

@@ -59,7 +59,8 @@ class JwtProductController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required|numeric'
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric'
         ]);
 
         $product = new Product();
@@ -67,7 +68,9 @@ class JwtProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->slug = Str::slug($request->name, "-");
+        $product->image = $request->image;
         $product->price = $request->price;
+        $product->stock = $request->stock;
 
         $product->save();
     }
@@ -115,15 +118,18 @@ class JwtProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'slug' => 'required',
-            'price' => 'required|numeric'
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric'
         ]);
 
         $product = Product::findOrFail($request->id);
 
         $product->name = $request->name;
         $product->description = $request->description;
-        $product->slug = $request->slug;
+        $product->slug = Str::slug($request->name, "-");
+        $product->image = $request->image;
         $product->price = $request->price;
+        $product->stock = $request->stock;
 
         $product->save();
 

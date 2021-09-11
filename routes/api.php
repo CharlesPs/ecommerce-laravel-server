@@ -25,6 +25,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/admin/products', 'App\Http\Controllers\JwtProductController@store');
     Route::put('/admin/products/{id}', 'App\Http\Controllers\JwtProductController@update');
     Route::delete('/admin/products/{id}', 'App\Http\Controllers\JwtProductController@destroy');
+
+    Route::post('/admin/upload/image', 'App\Http\Controllers\AdminUploadController@image');
 });
 
 Route::get('/products', 'App\Http\Controllers\ProductController@index');

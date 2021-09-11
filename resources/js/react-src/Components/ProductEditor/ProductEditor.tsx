@@ -5,7 +5,12 @@ import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons'
 
+import Swal from 'sweetalert2'
+
 import './ProductEditor.scss'
+import Config from '../../Config/Config'
+import InputImage from '../InputImage/InputImage'
+import { getHeaders } from '../../Helpers/HttpHelper'
 
 const ProductEditor = (props: any) => {
 
@@ -25,6 +30,17 @@ const ProductEditor = (props: any) => {
     }
 
     const handleSave = () => {
+
+        if (!row.image) {
+
+            Swal.fire({
+                title: 'Falta la imagen',
+                text: 'Sube una imagen para continuar',
+                confirmButtonText: 'Aceptar',
+            })
+
+            return
+        }
 
         props.onSave(row)
     }
@@ -75,6 +91,30 @@ const ProductEditor = (props: any) => {
                                 className="text-end"
                                 value={row.price}
                                 onChange={(e: any) => handleField('price', e.target.value)}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3">
+                        <Form.Label column sm={2}>Stock</Form.Label>
+                        <Col sm={2}>
+                            <Form.Control
+                                type="text"
+                                placeholder="0"
+                                className="text-end"
+                                value={row.stock}
+                                onChange={(e: any) => handleField('stock', e.target.value)}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3">
+                        <Form.Label column sm={2}>Imagen</Form.Label>
+                        <Col sm={4}>
+                            <InputImage
+                                url={`${Config.server.host}/api/admin/upload/image`}
+                                headers={getHeaders()}
+                                folder="products"
+                                src={row.image}
+                                onFileUploaded={(file_name: string) => handleField('image', file_name)}
                             />
                         </Col>
                     </Form.Group>
