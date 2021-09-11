@@ -7,15 +7,15 @@ const Paginator = (props: any) => {
 
     const getUrl = (index: number) => {
 
-        if (index === 0) {
+        if (index === 0 && props.current_page > 1) {
 
-            return 1
-        } else if (index > props.last_page) {
-
-            return props.last_page
-        } else {
+            return props.current_page - 1
+        } else if (index > 0 && index < props.last_page) {
 
             return index
+        } else if (index + 1 > props.last_page) {
+
+            return props.last_page
         }
     }
 
