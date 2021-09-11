@@ -108,10 +108,8 @@ const ProductsPage = (props: any) => {
         }
     }, [ page ])
 
-    // console.log({ Products })
-
     return (
-        <main className="">
+        <main>
             <Header title="Productos" />
             <Card className="card-content">
                 <Card.Body>
