@@ -25,7 +25,7 @@ class JwtProductController extends Controller
             return response()->json(['status' => 'not_authorized'], 403);
         }
 
-        $result = Product::latest()->paginate(20);
+        $result = Product::latest()->paginate(10);
 
         return $result;
     }
