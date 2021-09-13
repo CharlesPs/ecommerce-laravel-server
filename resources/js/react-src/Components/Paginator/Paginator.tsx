@@ -23,7 +23,7 @@ const Paginator = (props: any) => {
         <ul className="pagination">
             {props.links.map((link: any, i: number) => (
                 <li className={`page-item ${link.active ? 'active' : ''}`} key={i}>
-                    <Link className={`page-link`} to={`${props.page_url}?page=${getUrl(i)}`}>
+                    <Link className={`page-link`} to={`${props.page_url}?page=${getUrl(i) ?? 1}`}>
                         {parseString(link.label)}
                     </Link>
                 </li>
