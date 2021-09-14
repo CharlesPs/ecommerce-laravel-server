@@ -51,6 +51,10 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+
+        $row = Product::find($id);
+
+        return $row;
     }
 
     /**
