@@ -31,3 +31,6 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
 Route::get('/products', 'App\Http\Controllers\ProductController@index');
 Route::get('/products/{id}', 'App\Http\Controllers\ProductController@show');
+
+Route::post('/cart', 'App\Http\Controllers\CartController@index');
+

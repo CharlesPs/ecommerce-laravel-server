@@ -140,7 +140,25 @@ const ProductsPage = (props: any) => {
                                             <strong>{product.name}</strong><br />
                                             <small>{product.description}</small>
                                         </td>
-                                        <td>{product.price}</td>
+                                        <td>
+                                            {product.discount_price !== 0 ? (
+                                                <>
+                                                    <div>
+                                                        {product.discount_price}
+                                                    </div>
+                                                    <div style={{
+                                                        fontSize: 'small',
+                                                        textDecoration: 'line-through'
+                                                    }}>
+                                                        {product.price}
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <div>
+                                                    {product.price}
+                                                </div>
+                                            )}
+                                        </td>
                                         <td>{product.stock}</td>
                                         <td>
                                             <Button

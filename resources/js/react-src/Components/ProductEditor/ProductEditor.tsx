@@ -72,17 +72,6 @@ const ProductEditor = (props: any) => {
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
-                        <Form.Label column sm={2}>Descripción</Form.Label>
-                        <Col sm={8} md={7} lg={6}>
-                            <Form.Control
-                                as="textarea"
-                                placeholder="Descripción del producto"
-                                value={row.description}
-                                onChange={(e: any) => handleField('description', e.target.value)}
-                            />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} className="mb-3">
                         <Form.Label column sm={2}>Precio</Form.Label>
                         <Col sm={2}>
                             <Form.Control
@@ -91,6 +80,18 @@ const ProductEditor = (props: any) => {
                                 className="text-end"
                                 value={row.price}
                                 onChange={(e: any) => handleField('price', e.target.value)}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3">
+                        <Form.Label column sm={2}>Precio con descuento</Form.Label>
+                        <Col sm={2}>
+                            <Form.Control
+                                type="text"
+                                placeholder="0"
+                                className="text-end"
+                                value={row.discount_price}
+                                onChange={(e: any) => handleField('discount_price', e.target.value)}
                             />
                         </Col>
                     </Form.Group>
@@ -115,6 +116,17 @@ const ProductEditor = (props: any) => {
                                 folder="products"
                                 src={row.image}
                                 onFileUploaded={(file_name: string) => handleField('image', file_name)}
+                            />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} className="mb-3">
+                        <Form.Label column sm={2}>Descripción</Form.Label>
+                        <Col sm={8} md={7} lg={6}>
+                            <Form.Control
+                                as="textarea"
+                                placeholder="Descripción del producto"
+                                value={row.description}
+                                onChange={(e: any) => handleField('description', e.target.value)}
                             />
                         </Col>
                     </Form.Group>
