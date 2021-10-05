@@ -8,7 +8,7 @@ use JWTAuth;
 use App\Models\User;
 use Illuminate\Support\Str;
 
-class JwtProductController extends Controller
+class AdminProductController extends Controller
 {
     /**
      * Display a listing of the resource.

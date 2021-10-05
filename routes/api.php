@@ -21,10 +21,10 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::post('user','App\Http\Controllers\SessionController@getAuthenticatedUser');
 
-    Route::get('/admin/products', 'App\Http\Controllers\JwtProductController@index');
-    Route::post('/admin/products', 'App\Http\Controllers\JwtProductController@store');
-    Route::put('/admin/products/{id}', 'App\Http\Controllers\JwtProductController@update');
-    Route::delete('/admin/products/{id}', 'App\Http\Controllers\JwtProductController@destroy');
+    Route::get('/admin/products', 'App\Http\Controllers\AdminProductController@index');
+    Route::post('/admin/products', 'App\Http\Controllers\AdminProductController@store');
+    Route::put('/admin/products/{id}', 'App\Http\Controllers\AdminProductController@update');
+    Route::delete('/admin/products/{id}', 'App\Http\Controllers\AdminProductController@destroy');
 
     Route::post('/admin/upload/image', 'App\Http\Controllers\AdminUploadController@image');
 });
@@ -33,4 +33,6 @@ Route::get('/products', 'App\Http\Controllers\ProductController@index');
 Route::get('/products/{id}', 'App\Http\Controllers\ProductController@show');
 
 Route::post('/cart', 'App\Http\Controllers\CartController@index');
+Route::post('/cart/add-item', 'App\Http\Controllers\CartController@addItem');
+Route::post('/cart/remove-item', 'App\Http\Controllers\CartController@removeItem');
 
