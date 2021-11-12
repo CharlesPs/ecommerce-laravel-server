@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import PrivateRoute from './Helpers/PrivateRoute'
 
@@ -13,6 +13,7 @@ import MainLayout from './Layouts/MainLayout/MainLayout'
 import LoginPage from './Pages/LoginPage/LoginPage'
 import HomePage from './Pages/HomePage/HomePage'
 import ProductsPage from './Pages/ProductsPage/ProductsPage'
+import { appGetStatus } from './Redux/Actions/AppActions'
 
 const App = () => {
 
@@ -37,6 +38,17 @@ const App = () => {
             checkSession()
         }
     }, [ isAuthenticated, sessionChecked ])
+
+    useEffect(() => {
+
+        const getStatus = () => dispatch(appGetStatus())
+
+        getStatus()
+
+        let interval = setInterval(() => getStatus(), 60000)
+
+        return () => clearInterval(interval)
+    }, [ ])
 
     return (
         <>

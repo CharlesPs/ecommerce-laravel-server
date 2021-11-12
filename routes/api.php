@@ -21,6 +21,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 
     Route::post('user','App\Http\Controllers\SessionController@getAuthenticatedUser');
 
+    Route::get('/admin/status', 'App\Http\Controllers\AdminStatusController@index');
+
     Route::get('/admin/products', 'App\Http\Controllers\AdminProductController@index');
     Route::post('/admin/products', 'App\Http\Controllers\AdminProductController@store');
     Route::put('/admin/products/{id}', 'App\Http\Controllers\AdminProductController@update');

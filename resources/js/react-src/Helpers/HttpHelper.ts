@@ -45,7 +45,7 @@ const onError = (apiStart: any, method: string, request_id: string, error: any) 
 
     console.log(`API ${method} ERROR`, `${diff} ms`, `Request Id: ${request_id}`, error)
 
-    if (error.response.status === 401) {
+    if (error.response.status === 401 || error.response.status === 403) {
 
         localStorage.removeItem('sessionToken')
 
