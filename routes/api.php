@@ -31,6 +31,8 @@ Route::group(['middleware' => ['jwt.verify']], function() {
     Route::post('/admin/upload/image', 'App\Http\Controllers\AdminUploadController@image');
 });
 
+Route::get('/home', 'App\Http\Controllers\HomeController@index');
+
 Route::get('/products', 'App\Http\Controllers\ProductController@index');
 Route::get('/products/{id}', 'App\Http\Controllers\ProductController@show');
 
